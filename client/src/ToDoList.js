@@ -13,12 +13,16 @@ const ToDoList = () => {
     axios.get(endpoint + '/api/task')
       .then(res => {
         setTasks(res.data);
-        // console.log(res.data);
       })
       .catch(err => console.error(err))
   }
 
   const onSubmit = () => {
+    if (!task) {
+      alert("enter task");
+      return
+    } 
+
     axios.post(endpoint + '/api/task', { task }, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -29,6 +33,14 @@ const ToDoList = () => {
         getTasks();
       })
       .catch(err => console.error(err))
+  }
+
+  const onReset = () => {
+    setTask("");
+  }
+
+  const onChange = (event) => {
+    setTask(event.target.value)
   }
 
   useEffect(() => {
@@ -50,9 +62,9 @@ const ToDoList = () => {
             name="task"
             fluid
             placeholder="Create Task"
-            onChange={(event) => setTask(event.target.value)}
+            value={task}
+            onChange={onChange}
           />
-          {/* <Button>Create Task</Button> */}
         </Form>
       </div>
       <div className="row" style={{marginTop: '2rem'}}>
