@@ -104,7 +104,10 @@ func DeleteAllTask(w http.ResponseWriter, r *http.Request) {
 }
 
 func getAllTask() []primitive.M  {
-	cur, err := collection.Find(context.Background(), bson.D{{}})
+	findOptions := options.Find()
+	findOptions.SetSort(bson.D{primitive.E{Key: "_id", Value: -1}})
+
+	cur, err := collection.Find(context.Background(), bson.D{}, findOptions)
 	if err != nil {
 		log.Fatal(err)
 	}
