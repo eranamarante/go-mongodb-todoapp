@@ -4,7 +4,7 @@ import {
   Icon
 } from "semantic-ui-react"
 
-const ToDoCard = ({item}) => {
+const ToDoCard = ({item, completeTask, undoTask, deleteTask}) => {
   return (
     <Card color={item.status ? "green" : "yellow"} fluid>
       <Card.Content>
@@ -17,17 +17,29 @@ const ToDoCard = ({item}) => {
             name="check circle"
             color="green"
           />
-          <span style={{ paddingRight: 10 }}>Done</span>
+          <span 
+            onClick={() => completeTask(item._id)}
+            style={{ paddingRight: 10, cursor: 'pointer' }}>
+              Done
+          </span>
           <Icon
             name="undo"
             color="yellow"
           />
-          <span style={{ paddingRight: 10 }}>Undo</span>
+          <span 
+            onClick={() => undoTask(item._id)}
+            style={{ paddingRight: 10, cursor: 'pointer' }}>
+              Undo
+          </span>
           <Icon
             name="delete"
             color="red"
           />
-          <span style={{ paddingRight: 10 }}>Delete</span>
+          <span 
+            onClick={() => deleteTask(item._id)}
+            style={{ paddingRight: 10, cursor: 'pointer' }}>
+              Delete
+          </span>
         </Card.Meta>
       </Card.Content>
     </Card>

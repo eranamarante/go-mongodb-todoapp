@@ -17,6 +17,42 @@ const ToDoList = () => {
       .catch(err => console.error(err))
   }
 
+  const completeTask = (id) => {
+    axios.put(`${endpoint}/api/task/${id}`, null, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then( _ => {
+        getTasks();
+      })
+      .catch(err => console.error(err))
+  }
+
+  const undoTask = (id) => {
+    axios.put(`${endpoint}/api/undoTask/${id}`, null, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then( _ => {
+        getTasks();
+      })
+      .catch(err => console.error(err))
+  }
+
+  const deleteTask = (id) => {
+    axios.delete(`${endpoint}/api/deleteTask/${id}`, null, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then( _ => {
+        getTasks();
+      })
+      .catch(err => console.error(err))
+  }
+
   const onSubmit = () => {
     if (!task) {
       alert("enter task");
@@ -33,10 +69,6 @@ const ToDoList = () => {
         getTasks();
       })
       .catch(err => console.error(err))
-  }
-
-  const onReset = () => {
-    setTask("");
   }
 
   const onChange = (event) => {
@@ -71,7 +103,13 @@ const ToDoList = () => {
         <Card.Group>
           {tasks?.length > 0 ? (
             tasks.map(t => (
-              <ToDoCard key={t._id} item={t} />
+              <ToDoCard 
+                key={t._id}
+                item={t}
+                completeTask={completeTask}
+                undoTask={undoTask}
+                deleteTask={deleteTask}
+              />
             ))
           ) : (
             <p>No tasks found.</p>
