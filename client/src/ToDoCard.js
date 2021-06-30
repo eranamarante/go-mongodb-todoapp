@@ -5,9 +5,8 @@ import {
 } from "semantic-ui-react"
 
 const ToDoCard = ({item}) => {
-  console.log(item);
   return (
-    <Card color="yellow" fluid>
+    <Card color={item.status ? "green" : "yellow"} fluid>
       <Card.Content>
         <Card.Header textAlign="left">
           <div style={{ wordWrap: "break-word" }}>{item.task}</div>
